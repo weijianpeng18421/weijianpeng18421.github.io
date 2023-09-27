@@ -2,195 +2,151 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>魏歆然小朋友</title>
+  <title>文字雨</title>
   <style>
-    html, body, a, div, span, table, tr, td, strong, ul, ol, li, h1, h2, h3, p, input {
-      font-weight: inherit;
-      font-size: inherit;
-      list-style: none;
-      border-spacing: 0;
-      border: 0;
-      border-collapse: collapse;
-      text-decoration: none;
-      padding: 0;
-      margin: 0;
-    }
-    html, body {
-      font-family: "Segoe UI",Segoe,Tahoma,Arial,Verdana,sans-serif;
-      background-color: #3D69A4;
+    html, body { 
+      height: 100%; 
+      margin: 0; 
       overflow: hidden;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      height: 100%;
     }
-    .snow .snow_slice {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 600px;
-      pointer-events: none;
-      transform-origin: 0% 0%;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      overflow: hidden;
-      z-index: 2;
+    body { 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      background: #000; 
     }
-    .snow .snow_1 {
-      animation-name: snow_falling_fore;
-      animation-delay: 0s;
-      animation-duration: 50s;
-      height: 100%;
-      top: -100%;
-      pointer-events: none;
+    main {
+      display: flex;
     }
-    .snow .snow_2 {
-      animation-name: snow_falling_fore;
-      animation-delay: 25s;
-      animation-duration: 50s;
-      height: 100%;
-      top: -100%;
-      pointer-events: none;
+    p {
+      line-height: 1;
     }
-    .snow .snow_3 {
-      animation-name: snow_falling_mid;
-      animation-delay: 0s;
-      animation-duration: 70s;
-      opacity: .5;
-      top: -100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .snow .snow_4 {
-      animation-name: snow_falling_mid;
-      animation-delay: 35s;
-      animation-duration: 70s;
-      opacity: .5;
-      top: -100%;
-      height: 100%;
-      pointer-events: none;
-    }
-    .snow .snow_drifter {
-      width: 100%;
-      height: 100%;
-      background-repeat: repeat;
-      background-image: url(./image/snow-static.png);
-      pointer-events: none;
-    }
-    @keyframes snow_falling_fore {
-      0% {
-        top:-100%;
-        opacity:0
-      }
-      1% {
-        top:-100%;
-        opacity:1
-      }
-      99.8% {
-        top:100%;
-        opacity:1
-      }
-      99.9% {
-        opacity:0
-      }
-      100% {
-        top:-100%;
-        opacity:0
-      }
-    }
-    @keyframes snow_falling_mid {
-      0% {
-        top:-100%;
-        opacity:0
-      }
-      1% {
-        top:-100%;
-        opacity:1
-      }
-      99.8% {
-        top:100%;
-        opacity:1
-      }
-      99.9% {
-        opacity:0
-      }
-      100% {
-        top:-100%;
-        opacity:0
-      }
-    }
-    /* 四边 */
-    .frost {
-      height: 100%;
-      width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: 2;
-    }
-    .frost .frame_sprite {
-      position: absolute;
-      height: 100px;
-      background-repeat: repeat-x;
-      background-size: contain;
-      background-position: center bottom;
-      background-image: url(./image/border-ice.png);
-    }
-    .frost .frame_left {
-      top: -133px;
-      left: 0;
-      transform: rotate(90deg);
-      transform-origin: 0 100px;
-      pointer-events: none;
-      width: 500%;
-    }
-    .frost .frame_right {
-      top: 100%;
-      left: calc(100% - 100px);
-      transform: rotate(-90deg);
-      transform-origin: 0 0;
-      width: 500%;
-      pointer-events: none;
-    }
-    .frost .frame_top {
-      top: 0;
-      width: 500%;
-      transform: rotate(180deg);
-      pointer-events: none;
-    }
-    .frost .frame_bottom {
-      bottom: 0;
-      left: 0;
-      width: 500%;
-      pointer-events: none;
+    span {
+      display: block;
+      width: 2vmax; 
+      height: 2vmax; 
+      font-size: 2vmax; 
+      color: #9bff9b11;
+      text-align: center;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
     }
   </style>
 </head>
 <body>
-  <div class="snow">
-    <div class="snow_slice snow_1">
-      <div class="snow_drifter drift_1"></div>
-    </div>
-    <div class="snow_slice snow_2">
-      <div class="snow_drifter drift_2"></div>
-    </div>
-    <div class="snow_slice snow_3">
-      <div class="snow_drifter drift_3"></div>
-    </div>
-    <div class="snow_slice snow_4">
-      <div class="snow_drifter drift_4"></div>
-    </div>
-  </div>
-  <div class="frost">
-    <div class="frame_sprite frame_left"></div>
-    <div class="frame_sprite frame_right"></div>
-    <div class="frame_sprite frame_top"></div>
-    <div class="frame_sprite frame_bottom"></div>
-  </div>
+  <main></main>
+  <script>
+    function r(from, to) {
+      return ~~(Math.random() * (to - from + 1) + from);
+    }
+    function pick() {
+      return arguments[r(0, arguments.length - 1)];
+    }
+    function getChar() {
+      return String.fromCharCode(pick(
+        r(0x3041, 0x30ff),
+        r(0x2000, 0x206f),
+        r(0x0020, 0x003f)
+      ));
+    }
+    function loop(fn, delay) {
+      let stamp = Date.now();
+      function _loop() {
+        if (Date.now() - stamp >= delay) {
+          fn(); stamp = Date.now();
+        }
+        requestAnimationFrame(_loop);
+      }
+      requestAnimationFrame(_loop);
+    }
+    class Char {
+      constructor() {
+        this.element = document.createElement('span');
+        this.mutate();
+      }
+      mutate() {
+        this.element.textContent = getChar();
+      }
+    }
+    class Trail {
+      constructor(list = [], options) {
+        this.list = list;
+        this.options = Object.assign(
+          { size: 10, offset: 0 }, options
+        );
+        this.body = [];
+        this.move();
+      }
+      traverse(fn) {
+        this.body.forEach((n, i) => {
+          let last = (i == this.body.length - 1);
+          if (n) fn(n, i, last);
+        });
+      }
+      move() {
+        this.body = [];
+        let { offset, size } = this.options;
+        for (let i = 0; i < size; ++i) {
+          let item = this.list[offset + i - size + 1];
+          this.body.push(item);
+        }
+        this.options.offset =
+          (offset + 1) % (this.list.length + size - 1);
+      }
+    }
+    class Rain {
+      constructor({ target, row }) {
+        this.element = document.createElement('p');
+        this.build(row);
+        if (target) {
+          target.appendChild(this.element);
+        }
+        this.drop();
+      }
+      build(row = 20) {
+        let root = document.createDocumentFragment();
+        let chars = [];
+        for (let i = 0; i < row; ++i) {
+          let c = new Char();
+          root.appendChild(c.element);
+          chars.push(c);
+          if (Math.random() < .5) {
+            loop(() => c.mutate(), r(1e3, 5e3));
+          }
+        }
+        this.trail = new Trail(chars, {
+          size: r(10, 30), offset: r(0, 100)
+        });
+        this.element.appendChild(root);
+      }
+      drop() {
+        let trail = this.trail;
+        let len = trail.body.length;
+        let delay = r(10, 100);
+        loop(() => {
+          trail.move();
+          trail.traverse((c, i, last) => {
+            c.element.style = `
+        color: hsl(136, 100%, ${85 / len * (i + 1)}%)
+      `;
+            if (last) {
+              c.mutate();
+              c.element.style = `
+          color: hsl(136, 100%, 85%);
+          text-shadow:
+            0 0 .5em #fff,
+            0 0 .5em currentColor;
+        `;
+            }
+          });
+        }, delay);
+      }
+    }
+
+    const main = document.querySelector('main');
+    for (let i = 0; i < 50; ++i) {
+      new Rain({ target: main, row: 50 });
+    }
+  </script>
 </body>
 </html>
